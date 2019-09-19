@@ -171,9 +171,14 @@ public class CameraActivity extends AppCompatActivity {
 
                 int rotation = getWindowManager().getDefaultDisplay().getRotation();
                 captureBuilder.set(CaptureRequest.JPEG_ORIENTATION, ORIENTATIONS.get(rotation));
-
-                file = new File(Environment.getExternalStorageDirectory()+"/"+StoragePath + UUID.randomUUID().toString() + ".jpg");
-
+                String folderPath = Environment.getExternalStorageDirectory()+"/"+StoragePath+"/" + UUID.randomUUID().toString() + ".jpg";
+                File some = new File(folderPath);
+                if(!some.exists()){
+                    File wallpaperDirectory = new File(folderPath);
+                    wallpaperDirectory.mkdirs();
+                }
+                file = new File(Environment.getExternalStorageDirectory()+"/"+StoragePath+"/" + UUID.randomUUID().toString() + ".jpg");
+                some.delete();
                 ImageReader.OnImageAvailableListener readerListener = new ImageReader.OnImageAvailableListener() {
                     @Override
                     public void onImageAvailable(ImageReader imageReader) {
